@@ -1,0 +1,26 @@
+# 環境変数（機密情報を含むため除外）
+.env
+
+# ダウンロード・生成ファイル
+botwork/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+
+# Node.js
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# エディタ
+.vscode/
+.idea/
+*.swp
