@@ -46,9 +46,10 @@ def search_wikipedia(location: str) -> dict:
         page.fill(search_box, location)
         page.wait_for_timeout(500)
 
-        # 検索を実行（Enterキー）
-        page.keyboard.press("Enter")
-        page.wait_for_load_state("domcontentloaded")
+        # 検索を実行（Enterキー）— ナビゲーション完了を待機
+        with page.expect_navigation(wait_until="domcontentloaded"):
+            page.keyboard.press("Enter")
+        page.wait_for_load_state("load")
 
         # ページタイトル
         title = page.title()
