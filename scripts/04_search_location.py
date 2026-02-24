@@ -50,6 +50,9 @@ def search_wikipedia(location: str) -> dict:
         with page.expect_navigation(wait_until="domcontentloaded"):
             page.keyboard.press("Enter")
         page.wait_for_load_state("load")
+        # メインコンテンツが描画されるまで待機（最大10秒）
+        page.wait_for_selector("#mw-content-text .mw-parser-output > p", timeout=10000)
+        page.wait_for_timeout(1000)
 
         # ページタイトル
         title = page.title()
@@ -83,6 +86,8 @@ def search_wikipedia(location: str) -> dict:
                         sections.append(text)
                 break
 
+        # ブラウザを閉じる前に少し待機して値の取得を確実にする
+        page.wait_for_timeout(1500)
         browser.close()
 
     return {
